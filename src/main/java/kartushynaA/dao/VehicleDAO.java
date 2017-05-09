@@ -31,6 +31,9 @@ public class VehicleDAO {
                 int bortNumber = rs.getInt("bortNumber");
                 allVehicle.add(new Vehicle(id, bortNumber));
             }
+            rs.close();
+            ps.close();
+            connect.close();
 
         } catch (SQLException e) {
             System.out.print("can't getAllNumOfOrder");
@@ -48,6 +51,9 @@ public class VehicleDAO {
             ps = connect.prepareStatement(ID);
             ps.setInt(1,id);
             rs.next();
+            rs.close();
+            ps.close();
+            connect.close();
             return new Vehicle(rs.getInt(1),rs.getInt(2));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,6 +69,8 @@ public class VehicleDAO {
             ps.setInt(1, newVehicle.getId());
             ps.setInt(1, newVehicle.getBortNumber());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,6 +84,8 @@ public class VehicleDAO {
             ps.setInt(1, allVehicle.getId());
             ps.setInt(1, allVehicle.getBortNumber());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -88,6 +98,8 @@ public class VehicleDAO {
             ps = connect.prepareStatement(DELETE);
             ps.setInt(1, oldVehicle.getId());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

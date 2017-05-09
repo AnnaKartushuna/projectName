@@ -31,6 +31,9 @@ public class RouteDAO {
                 int numberOfRoute = rs.getInt("numberOfRoute");
                 allRoute.add(new Route(id, numberOfRoute));
             }
+            rs.close();
+            ps.close();
+            connect.close();
 
         } catch (SQLException e) {
             System.out.print("can't getAllNumOfOrder");
@@ -48,10 +51,14 @@ public class RouteDAO {
             ps = connect.prepareStatement(ID);
             ps.setInt(1,id);
             rs.next();
+            rs.close();
+            ps.close();
+            connect.close();
             return new Route(rs.getInt(1),rs.getInt(2));
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
@@ -63,6 +70,8 @@ public class RouteDAO {
             ps.setInt(1, newRoute.getId());
             ps.setInt(1, newRoute.getNumberOfRoute());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,6 +85,8 @@ public class RouteDAO {
             ps.setInt(1, allRoute.getId());
             ps.setInt(1, allRoute.getNumberOfRoute());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -88,6 +99,8 @@ public class RouteDAO {
             ps = connect.prepareStatement(DELETE);
             ps.setInt(1, oldRoute.getId());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

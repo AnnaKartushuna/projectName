@@ -33,8 +33,10 @@ public class EmployeeDAO {
                 String lastName = rs.getString("lastName");
                 int personelNumber = rs.getInt("personelNumber");
                 allEmployee.add(new Employee(id, name, surName, lastName, personelNumber));
-
             }
+            rs.close();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             System.out.print("can't getAllEmployee");
             e.printStackTrace();
@@ -51,6 +53,9 @@ public class EmployeeDAO {
             ps = connect.prepareStatement(ID);
             ps.setInt(1,id);
             rs.next();
+            rs.close();
+            ps.close();
+            connect.close();
             return new Employee(rs.getInt(1),rs.getString(2),rs.getString(3), rs.getString(4),rs.getInt(5));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,6 +74,8 @@ public class EmployeeDAO {
             ps.setString(1, newEmployee.getLastName());
             ps.setInt(1, newEmployee.getPersonelNumber());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -84,8 +91,9 @@ public class EmployeeDAO {
             ps.setString(1, allEmployee.getSurName());
             ps.setString(1, allEmployee.getLastName());
             ps.setInt(1, allEmployee.getPersonelNumber());
-
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -98,6 +106,8 @@ public class EmployeeDAO {
             ps = connect.prepareStatement(DELETE);
             ps.setInt(1, oldEmployee.getId());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

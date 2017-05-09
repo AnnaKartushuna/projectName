@@ -33,8 +33,10 @@ public class TimeTableDAO {
                 int idVehicle = rs.getInt("idVehicle");
                 int idDaileOrder = rs.getInt("idDaileOrder");
                 allTimeTable.add(new TimeTable(id, dayOfMonth, idEmployee, idVehicle, idDaileOrder));
-
             }
+            rs.close();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             System.out.print("can't getAllEmployee");
             e.printStackTrace();
@@ -51,6 +53,9 @@ public class TimeTableDAO {
             ps = connect.prepareStatement(ID);
             ps.setInt(1,id);
             rs.next();
+            rs.close();
+            ps.close();
+            connect.close();
             return new TimeTable(rs.getInt(1),rs.getString(2),rs.getInt(3), rs.getInt(4),rs.getInt(5));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,6 +74,8 @@ public class TimeTableDAO {
             ps.setInt(1, newTimeTable.getIdEmployee());
             ps.setInt(1, newTimeTable.getIdVehicle());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -84,8 +91,9 @@ public class TimeTableDAO {
             ps.setInt(1, allTimeTable.getIdDaileOrder());
             ps.setInt(1, allTimeTable.getIdEmployee());
             ps.setInt(1, allTimeTable.getIdVehicle());
-
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -98,6 +106,8 @@ public class TimeTableDAO {
             ps = connect.prepareStatement(DELETE);
             ps.setInt(1, oldTimeTable.getId());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

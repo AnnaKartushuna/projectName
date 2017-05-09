@@ -31,6 +31,9 @@ public class TurnDAO {
                 int numOfTurn = rs.getInt("numOfTurn");
                 allTurn.add(new Turn(id, numOfTurn));
             }
+            rs.close();
+            ps.close();
+            connect.close();
 
         } catch (SQLException e) {
             System.out.print("can't getAllNumOfOrder");
@@ -48,6 +51,9 @@ public class TurnDAO {
             ps = connect.prepareStatement(ID);
             ps.setInt(1,id);
             rs.next();
+            rs.close();
+            ps.close();
+            connect.close();
             return new Turn(rs.getInt(1),rs.getInt(2));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,6 +69,8 @@ public class TurnDAO {
             ps.setInt(1, newTurn.getId());
             ps.setInt(1, newTurn.getNumOfTurn());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,6 +84,8 @@ public class TurnDAO {
             ps.setInt(1, allTurn.getId());
             ps.setInt(1, allTurn.getNumOfTurn());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -88,6 +98,8 @@ public class TurnDAO {
             ps = connect.prepareStatement(DELETE);
             ps.setInt(1, oldTurn.getId());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

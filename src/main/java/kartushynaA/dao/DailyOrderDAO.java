@@ -34,8 +34,10 @@ public class DailyOrderDAO {
                 int idTurn = rs.getInt("idTurn");;
                 int startTime = rs.getInt("startTime");;
                 allDailyOrder.add(new DailyOrder(id, idRoute, idNumOoOrder, idTurn, startTime));
-
             }
+            rs.close();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             System.out.print("can't getAllDailyOrder");
             e.printStackTrace();
@@ -52,6 +54,9 @@ public class DailyOrderDAO {
             ps = connect.prepareStatement(ID);
             ps.setInt(1,id);
             rs.next();
+            rs.close();
+            ps.close();
+            connect.close();
             return new DailyOrder(rs.getInt(1),rs.getInt(2),rs.getInt(3), rs.getInt(4),rs.getInt(5));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,6 +75,8 @@ public class DailyOrderDAO {
             ps.setInt(1, newDailyOrder.getIdTurn());
             ps.setInt(1, newDailyOrder.getStartTime());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,8 +92,9 @@ public class DailyOrderDAO {
             ps.setInt(1, allDailyOrder.getIdNumOoOrder());
             ps.setInt(1, allDailyOrder.getIdTurn());
             ps.setInt(1, allDailyOrder.getStartTime());
-
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -99,6 +107,8 @@ public class DailyOrderDAO {
             ps = connect.prepareStatement(DELETE);
             ps.setInt(1, oldDailyOrder.getId());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

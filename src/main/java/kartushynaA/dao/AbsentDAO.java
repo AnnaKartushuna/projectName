@@ -34,10 +34,14 @@ public class AbsentDAO {
                 allAbsents.add(new Absent(id, dayOfWeek, reason, idEmployee));
 
             }
+            rs.close();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             System.out.print("can't getAllAbsents");
             e.printStackTrace();
             return new ArrayList<Absent>();
+
         }
         return allAbsents;
     }
@@ -50,6 +54,9 @@ public class AbsentDAO {
             ps = connect.prepareStatement(ID);
             ps.setInt(1,id);
             rs.next();
+            rs.close();
+            ps.close();
+            connect.close();
             return new Absent(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getInt(4));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,6 +74,8 @@ public class AbsentDAO {
             ps.setString(3, newAbsent.getReason());
             ps.setInt(4, newAbsent.getIdEmployee());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -82,6 +91,8 @@ public class AbsentDAO {
             ps.setString(3, allAbsents.getReason());
             ps.setInt(4, allAbsents.getIdEmployee());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,6 +105,8 @@ public class AbsentDAO {
             ps = connect.prepareStatement(DELETE);
             ps.setInt(1, oldAbsents.getId());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

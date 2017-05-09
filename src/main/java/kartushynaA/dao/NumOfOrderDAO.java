@@ -31,6 +31,9 @@ public class NumOfOrderDAO {
                 int num = rs.getInt("num");
                 allNumOfOrder.add(new NumOfOrder(id, num));
             }
+            rs.close();
+            ps.close();
+            connect.close();
 
         } catch (SQLException e) {
             System.out.print("can't getAllNumOfOrder");
@@ -48,6 +51,9 @@ public class NumOfOrderDAO {
             ps = connect.prepareStatement(ID);
             ps.setInt(1,id);
             rs.next();
+            rs.close();
+            ps.close();
+            connect.close();
             return new NumOfOrder(rs.getInt(1),rs.getInt(2));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,6 +69,8 @@ public class NumOfOrderDAO {
             ps.setInt(1, newNumOfOrder.getId());
             ps.setInt(1, newNumOfOrder.getNum());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,6 +84,8 @@ public class NumOfOrderDAO {
             ps.setInt(1, allNumOfOrder.getId());
             ps.setInt(1, allNumOfOrder.getNum());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -88,6 +98,8 @@ public class NumOfOrderDAO {
             ps = connect.prepareStatement(DELETE);
             ps.setInt(1, oldNumOfOrder.getId());
             ps.executeUpdate();
+            ps.close();
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
