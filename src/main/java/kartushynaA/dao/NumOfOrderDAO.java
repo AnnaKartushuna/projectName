@@ -13,10 +13,10 @@ public class NumOfOrderDAO {
     private static final String URL = "jdbc:mysql://localhost:3306/mainAcad";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1444";
-    private static final String NEW = "INSERT INTO NumOfOrder VALUES(id = null, password = ?, name = ?, login = ?)";
+    private static final String NEW = "INSERT INTO NumOfOrder VALUES(id = null, num = ?)";
     private static final String ALL = "SELECT * FROM NumOfOrder";
     private static final String ID = "SELECT * FROM NumOfOrder WHERE id = ?";
-    private static final String UPDATE = "UPDATE NumOfOrder SET password = ?, name = ?, login = ? WHERE id = ?";
+    private static final String UPDATE = "UPDATE NumOfOrder SET num = ? WHERE id = ?";
     private static final String DELETE = "DELETE FROM NumOfOrder WHERE  id = ?";
 
     public List<NumOfOrder> getAllNumOfOrder(){
@@ -66,7 +66,6 @@ public class NumOfOrderDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(NEW);
-            ps.setInt(1, newNumOfOrder.getId());
             ps.setInt(1, newNumOfOrder.getNum());
             ps.executeUpdate();
             ps.close();
@@ -81,8 +80,8 @@ public class NumOfOrderDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(UPDATE);
-            ps.setInt(1, allNumOfOrder.getId());
             ps.setInt(1, allNumOfOrder.getNum());
+            ps.setInt(2, allNumOfOrder.getId());
             ps.executeUpdate();
             ps.close();
             connect.close();

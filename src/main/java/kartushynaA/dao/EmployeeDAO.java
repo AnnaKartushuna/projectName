@@ -13,10 +13,10 @@ public class EmployeeDAO {
     private static final String URL = "jdbc:mysql://localhost:3306/mainAcad";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1444";
-    private static final String NEW = "INSERT INTO Employee VALUES(id = null, password = ?, name = ?, login = ?)";
+    private static final String NEW = "INSERT INTO Employee VALUES(id = null, name = ?, surName = ?, lastName = ?, personelNumber = ?)";
     private static final String ALL = "SELECT * FROM Employee";
     private static final String ID = "SELECT * FROM Employee WHERE id = ?";
-    private static final String UPDATE = "UPDATE Employee SET password = ?, name = ?, login = ? WHERE id = ?";
+    private static final String UPDATE = "UPDATE Employee SET name = ?, surName = ?, lastName = ?, personelNumber = ? WHERE id = ?";
     private static final String DELETE = "DELETE FROM Employee WHERE  id = ?";
 
     public List<Employee> getAllEmployee(){
@@ -68,11 +68,10 @@ public class EmployeeDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(NEW);
-            ps.setInt(1, newEmployee.getId());
             ps.setString(1, newEmployee.getName());
-            ps.setString(1, newEmployee.getSurName());
-            ps.setString(1, newEmployee.getLastName());
-            ps.setInt(1, newEmployee.getPersonelNumber());
+            ps.setString(2, newEmployee.getSurName());
+            ps.setString(3, newEmployee.getLastName());
+            ps.setInt(4, newEmployee.getPersonelNumber());
             ps.executeUpdate();
             ps.close();
             connect.close();
@@ -86,11 +85,11 @@ public class EmployeeDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(UPDATE);
-            ps.setInt(1, allEmployee.getId());
-            ps.setString(1, allEmployee.getName());
             ps.setString(1, allEmployee.getSurName());
-            ps.setString(1, allEmployee.getLastName());
-            ps.setInt(1, allEmployee.getPersonelNumber());
+            ps.setString(2, allEmployee.getLastName());
+            ps.setInt(3, allEmployee.getPersonelNumber());
+            ps.setInt(4, allEmployee.getId());
+            ps.setString(5, allEmployee.getName());
             ps.executeUpdate();
             ps.close();
             connect.close();

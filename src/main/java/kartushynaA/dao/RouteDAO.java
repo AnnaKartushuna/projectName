@@ -13,10 +13,10 @@ public class RouteDAO {
     private static final String URL = "jdbc:mysql://localhost:3306/mainAcad";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1444";
-    private static final String NEW = "INSERT INTO Route VALUES(id = null, password = ?, name = ?, login = ?)";
+    private static final String NEW = "INSERT INTO Route VALUES(id = null, numberOfRoute = ?)";
     private static final String ALL = "SELECT * FROM Route";
     private static final String ID = "SELECT * FROM Route WHERE id = ?";
-    private static final String UPDATE = "UPDATE Route SET password = ?, name = ?, login = ? WHERE id = ?";
+    private static final String UPDATE = "UPDATE Route SET numberOfRoute = ? WHERE id = ?";
     private static final String DELETE = "DELETE FROM Route WHERE  id = ?";
 
     public List<Route> getAllRoute(){
@@ -67,8 +67,7 @@ public class RouteDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(NEW);
-            ps.setInt(1, newRoute.getId());
-            ps.setInt(1, newRoute.getNumberOfRoute());
+            ps.setInt(2, newRoute.getNumberOfRoute());
             ps.executeUpdate();
             ps.close();
             connect.close();
@@ -82,8 +81,8 @@ public class RouteDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(UPDATE);
-            ps.setInt(1, allRoute.getId());
             ps.setInt(1, allRoute.getNumberOfRoute());
+            ps.setInt(2, allRoute.getId());
             ps.executeUpdate();
             ps.close();
             connect.close();

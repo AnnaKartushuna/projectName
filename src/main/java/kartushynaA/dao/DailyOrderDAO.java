@@ -14,10 +14,10 @@ public class DailyOrderDAO {
     private static final String URL = "jdbc:mysql://localhost:3306/mainAcad";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1444";
-    private static final String NEW = "INSERT INTO DailyOrder VALUES(id=null, password=?, name=?, login=?)";
+    private static final String NEW = "INSERT INTO DailyOrder VALUES(id=null, idRoute = ?, idNumOoOrder = ?, idTurn = ?, startTime = ?)";
     private static final String ALL = "SELECT * FROM DailyOrder";
     private static final String ID = "SELECT * FROM DailyOrder WHERE id = ?";
-    private static final String UPDATE = "UPDATE DailyOrder SET password=?, name=?, login=? WHERE id=?";
+    private static final String UPDATE = "UPDATE DailyOrder SET idRoute = ?, idNumOoOrder = ?, idTurn = ?, startTime = ? WHERE id=?";
     private static final String DELETE = "DELETE FROM DailyOrder WHERE  id=?";
 
     public List<DailyOrder> getAllDailyOrder(){
@@ -69,11 +69,10 @@ public class DailyOrderDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(NEW);
-            ps.setInt(1, newDailyOrder.getId());
             ps.setInt(1, newDailyOrder.getIdRoute());
-            ps.setInt(1, newDailyOrder.getIdNumOoOrder());
-            ps.setInt(1, newDailyOrder.getIdTurn());
-            ps.setInt(1, newDailyOrder.getStartTime());
+            ps.setInt(2, newDailyOrder.getIdNumOoOrder());
+            ps.setInt(3, newDailyOrder.getIdTurn());
+            ps.setInt(4, newDailyOrder.getStartTime());
             ps.executeUpdate();
             ps.close();
             connect.close();
@@ -87,11 +86,11 @@ public class DailyOrderDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(UPDATE);
-            ps.setInt(1, allDailyOrder.getId());
             ps.setInt(1, allDailyOrder.getIdRoute());
-            ps.setInt(1, allDailyOrder.getIdNumOoOrder());
-            ps.setInt(1, allDailyOrder.getIdTurn());
-            ps.setInt(1, allDailyOrder.getStartTime());
+            ps.setInt(2, allDailyOrder.getIdNumOoOrder());
+            ps.setInt(3, allDailyOrder.getIdTurn());
+            ps.setInt(4, allDailyOrder.getStartTime());
+            ps.setInt(5, allDailyOrder.getId());
             ps.executeUpdate();
             ps.close();
             connect.close();

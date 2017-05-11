@@ -13,10 +13,10 @@ public class AbsentDAO {
     private static final String URL = "jdbc:mysql://localhost:3306/mainAcad";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1444";
-    private static final String NEW = "INSERT INTO Absent VALUES(id = null, password = ?, name = ?, login = ?)";
+    private static final String NEW = "INSERT INTO Absent VALUES(id = null, dayOfWeek = ?, reason = ?, idEmployee = ?)";
     private static final String ALL = "SELECT * FROM Absent";
     private static final String ID = "SELECT * FROM Absent WHERE id = ?";
-    private static final String UPDATE = "UPDATE Absent SET password = ?, name = ?, login = ? WHERE id = ?";
+    private static final String UPDATE = "UPDATE Absent SET dayOfWeek = ?, reason = ?, idEmployee = ? WHERE id = ?";
     private static final String DELETE = "DELETE FROM Absent WHERE  id = ?";
 
     public List <Absent> getAllAbsents(){
@@ -69,10 +69,9 @@ public class AbsentDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(NEW);
-            ps.setInt(1, newAbsent.getId());
-            ps.setString(2, newAbsent.getDayOfWeek());
-            ps.setString(3, newAbsent.getReason());
-            ps.setInt(4, newAbsent.getIdEmployee());
+            ps.setString(1, newAbsent.getDayOfWeek());
+            ps.setString(2, newAbsent.getReason());
+            ps.setInt(3, newAbsent.getIdEmployee());
             ps.executeUpdate();
             ps.close();
             connect.close();
@@ -86,10 +85,10 @@ public class AbsentDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(UPDATE);
-            ps.setInt(1, allAbsents.getId());
-            ps.setString(2, allAbsents.getDayOfWeek());
-            ps.setString(3, allAbsents.getReason());
-            ps.setInt(4, allAbsents.getIdEmployee());
+            ps.setString(1, allAbsents.getDayOfWeek());
+            ps.setString(2, allAbsents.getReason());
+            ps.setInt(3, allAbsents.getIdEmployee());
+            ps.setInt(4, allAbsents.getId());
             ps.executeUpdate();
             ps.close();
             connect.close();

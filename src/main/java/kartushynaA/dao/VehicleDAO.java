@@ -13,10 +13,10 @@ public class VehicleDAO {
     private static final String URL = "jdbc:mysql://localhost:3306/mainAcad";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1444";
-    private static final String NEW = "INSERT INTO Vehicle VALUES(id = null, password = ?, name = ?, login = ?)";
+    private static final String NEW = "INSERT INTO Vehicle VALUES(id = null, bortNumber = ?)";
     private static final String ALL = "SELECT * FROM Vehicle";
     private static final String ID = "SELECT * FROM Vehicle WHERE id = ?";
-    private static final String UPDATE = "UPDATE Vehicle SET password = ?, name = ?, login = ? WHERE id = ?";
+    private static final String UPDATE = "UPDATE Vehicle SET bortNumber = ? WHERE id = ?";
     private static final String DELETE = "DELETE FROM Vehicle WHERE  id = ?";
 
     public List<Vehicle> getAllVehicle(){
@@ -66,7 +66,6 @@ public class VehicleDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(NEW);
-            ps.setInt(1, newVehicle.getId());
             ps.setInt(1, newVehicle.getBortNumber());
             ps.executeUpdate();
             ps.close();
@@ -81,8 +80,8 @@ public class VehicleDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(UPDATE);
-            ps.setInt(1, allVehicle.getId());
             ps.setInt(1, allVehicle.getBortNumber());
+            ps.setInt(2, allVehicle.getId());
             ps.executeUpdate();
             ps.close();
             connect.close();

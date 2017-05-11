@@ -13,10 +13,10 @@ public class TimeTableDAO {
     private static final String URL = "jdbc:mysql://localhost:3306/mainAcad";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1444";
-    private static final String NEW = "INSERT INTO TimeTable VALUES(id = null, password = ?, name = ?, login = ?)";
+    private static final String NEW = "INSERT INTO TimeTable VALUES(id = null, dayOfMonth = ?, idEmployee = ?, idVehicle = ?, idDaileOrder = ?)";
     private static final String ALL = "SELECT * FROM TimeTable";
     private static final String ID = "SELECT * FROM TimeTable WHERE id = ?";
-    private static final String UPDATE = "UPDATE TimeTable SET password = ?, name = ?, login = ? WHERE id = ?";
+    private static final String UPDATE = "UPDATE TimeTable SET dayOfMonth = ?, idEmployee = ?, idVehicle = ?, idDaileOrder = ? WHERE id = ?";
     private static final String DELETE = "DELETE FROM TimeTable WHERE  id = ?";
 
     public List<TimeTable> getAllTimeTable(){
@@ -68,11 +68,10 @@ public class TimeTableDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(NEW);
-            ps.setInt(1, newTimeTable.getId());
             ps.setString(1, newTimeTable.getDayOfMonth());
-            ps.setInt(1, newTimeTable.getIdDaileOrder());
-            ps.setInt(1, newTimeTable.getIdEmployee());
-            ps.setInt(1, newTimeTable.getIdVehicle());
+            ps.setInt(2, newTimeTable.getIdDaileOrder());
+            ps.setInt(3, newTimeTable.getIdEmployee());
+            ps.setInt(4, newTimeTable.getIdVehicle());
             ps.executeUpdate();
             ps.close();
             connect.close();
@@ -86,11 +85,11 @@ public class TimeTableDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(UPDATE);
-            ps.setInt(1, allTimeTable.getId());
             ps.setString(1, allTimeTable.getDayOfMonth());
-            ps.setInt(1, allTimeTable.getIdDaileOrder());
-            ps.setInt(1, allTimeTable.getIdEmployee());
-            ps.setInt(1, allTimeTable.getIdVehicle());
+            ps.setInt(2, allTimeTable.getIdDaileOrder());
+            ps.setInt(3, allTimeTable.getIdEmployee());
+            ps.setInt(4, allTimeTable.getIdVehicle());
+            ps.setInt(5, allTimeTable.getId());
             ps.executeUpdate();
             ps.close();
             connect.close();

@@ -13,10 +13,10 @@ public class TurnDAO {
     private static final String URL = "jdbc:mysql://localhost:3306/mainAcad";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1444";
-    private static final String NEW = "INSERT INTO Turn VALUES(id = null, password = ?, name = ?, login = ?)";
+    private static final String NEW = "INSERT INTO Turn VALUES(id = null, numOfTurn = ?)";
     private static final String ALL = "SELECT * FROM Turn";
     private static final String ID = "SELECT * FROM Turn WHERE id = ?";
-    private static final String UPDATE = "UPDATE Turn SET password = ?, name = ?, login = ? WHERE id = ?";
+    private static final String UPDATE = "UPDATE Turn SET numOfTurn = ? WHERE id = ?";
     private static final String DELETE = "DELETE FROM Turn WHERE  id = ?";
 
     public List<Turn> getAllTurn(){
@@ -66,7 +66,6 @@ public class TurnDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(NEW);
-            ps.setInt(1, newTurn.getId());
             ps.setInt(1, newTurn.getNumOfTurn());
             ps.executeUpdate();
             ps.close();
@@ -81,8 +80,8 @@ public class TurnDAO {
             Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = null;
             ps = connect.prepareStatement(UPDATE);
-            ps.setInt(1, allTurn.getId());
             ps.setInt(1, allTurn.getNumOfTurn());
+            ps.setInt(2, allTurn.getId());
             ps.executeUpdate();
             ps.close();
             connect.close();
